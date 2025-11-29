@@ -73,7 +73,8 @@ public class NoteService {
             return Collections.emptyMap();
         }
 
-        String cleanText = text.toLowerCase().replaceAll("[^a-zA-Z0-9\\s]", "");
+
+        String cleanText = text.toLowerCase().replaceAll("[^\\p{L}0-9\\s]", "");
         String[] words = cleanText.split("\\s+");
 
         Map<String, Integer> wordCounts = new HashMap<>();
