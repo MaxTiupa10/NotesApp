@@ -1,26 +1,119 @@
-# The Notes App
+# 📝 The Notes App
 
-Test assignment implementation using Spring Boot and MongoDB.
+Test assignment implementation using **Spring Boot** and **MongoDB**.
+The application allows users to create, read, update, delete, and analyze notes within a Dockerized environment.
 
-## Prerequisites
-- Docker & Docker Compose installed
-- Java 17 (only for building)
-- Maven
+## 🛠 Tech Stack
+- **Java 17**
+- **Spring Boot 3.3**
+- **MongoDB**
+- **Docker & Docker Compose**
+- **Maven**
 
-## How to Run
+---
+
+## 🚀 How to Run
+
+### Prerequisites
+- Docker & Docker Compose installed.
+- Maven (optional, you can use the wrapper `./mvnw`).
+
+### Steps
 
 1. **Build the application:**
    Open a terminal in the project root and run:
    ```bash
    mvn clean package -DskipTests
+Windows users can also use:
+   .\mvnw clean package -DskipTests
 2.Run with Docker Compose:
+   ```bash
    docker-compose up --build
-   
+   ```
 3.Access the application: The API will be available at:
-http://localhost:8080/api/notes
-
+   ```bash
+   http://localhost:8080/api/notes
+   ```
 4.Stop the application: Press Ctrl+C or run:
-docker-compose down
+   ```bash
+  docker-compose down
+   ```
+## 🧪 Quick Start Data (JSON Examples)
+
+You can populate the database using Postman or cURL.
+
+Endpoint: POST http://localhost:8080/api/notes
+
+Content-Type: application/json
+
+1. Standard Note (Test Filtering)
+
+Tag: BUSINESS
+```bash
+{
+  "title": "Project Roadmap Q4",
+  "text": "Finalize the API documentation and set up CI/CD pipelines for the backend team.",
+  "tags": ["BUSINESS"]
+}
+```
+2. Word Stats Test
+
+Tag: PERSONAL Use this to test GET /api/notes/{id}/stats. The word 'coffee' appears 3 times.
+```bash
+{
+  "title": "Morning Routine",
+  "text": "Need to buy coffee. Coffee is life. Buy milk and coffee again.",
+  "tags": ["PERSONAL"]
+}
+```
+3. Important Alert (Test Sorting)
+
+Tag: IMPORTANT This note should appear at the top of the list (Sorted by Created Date DESC).
+```bash
+{
+  "title": "SECURITY ALERT",
+  "text": "Never commit secrets or passwords to the Git repository! Use environment variables.",
+  "tags": ["IMPORTANT"]
+}
+```
+4. Multi-tag Note
+
+Tests support for multiple tags.
+```bash
+{
+  "title": "Startup Idea",
+  "text": "Create an AI-based note sorting algorithm using Spring AI.",
+  "tags": ["BUSINESS", "PERSONAL"]
+}
+```
+5. Empty Tags Note
+
+Tests creation with an empty tag list.
+```bash
+{
+  "title": "Just a thought",
+  "text": "Today is a great day to learn Docker and MongoDB.",
+  "tags": []
+}
+```
+## 📡 API Endpoints Reference
+
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/notes` | Create a new note |
+| `GET` | `/api/notes` | Get list of notes (Summary: ID, Title, Date) |
+| `GET` | `/api/notes/{id}` | Get full note details (includes Text) |
+| `PUT` | `/api/notes/{id}` | Update a note |
+| `DELETE` | `/api/notes/{id}` | Delete a note |
+| `GET` | `/api/notes/{id}/stats` | Get word frequency statistics (Unique words, sorted DESC) |
+
+Query Parameters (For Listing)
+
+    Pagination: ?page=0&size=10
+
+    Filtering: ?tag=BUSINESS (Allowed tags: BUSINESS, PERSONAL, IMPORTANT)
+
+## Results
 
 <img width="1650" height="864" alt="зображення" src="https://github.com/user-attachments/assets/93e5f30c-04ea-4d59-b8e6-2f3e4c378cfa" />
 
